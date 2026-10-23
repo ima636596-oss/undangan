@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Risma's 19th Birthday 💋</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================
+           1. PENGATURAN DASAR
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink: #ff39b8;
+            --light-pink: #ffb7e7;
+            --purple: #9d4edd;
+            --black: #10000e;
+            --white: #fff7fd;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            color: var(--white);
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    #ff149355,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 85% 85%,
+                    #8a2be255,
+                    transparent 40%
+                ),
+                var(--black);
+            overflow-x: hidden;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* =========================
+           2. EFEK GLITTER
+        ========================= */
+
+        #glitter-layer,
+        #effect-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 20;
+        }
+
+        .glitter {
+            position: absolute;
+            color: #fff;
+            text-shadow:
+                0 0 5px #fff,
+                0 0 12px var(--pink),
+                0 0 22px var(--purple);
+            animation: glitterFall linear forwards;
+        }
+
+        @keyframes glitterFall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* =========================
+           3. KUPU-KUPU MELAYANG
+        ========================= */
+
+        .butterfly {
+            position: fixed;
+            z-index: 1;
+            pointer-events: none;
+            font-size: 27px;
+            filter: drop-shadow(0 0 12px var(--pink));
+            animation: butterflyFloat 9s ease-in-out infinite;
+        }
+
+        .butterfly.one {
+            top: 12%;
+            left: 5%;
+        }
+
+        .butterfly.two {
+            top: 30%;
+            right: 5%;
+            animation-delay: -3s;
+        }
+
+        .butterfly.three {
+            bottom: 15%;
+            left: 8%;
+            animation-delay: -6s;
+        }
+
+        @keyframes butterflyFloat {
+            0%, 100% {
+                transform: translate(0, 0) rotate(-15deg);
+            }
+
+            50% {
+                transform: translate(20px, -35px) rotate(15deg);
+            }
+        }
+
+        /* =========================
+           4. PEMBUKAAN AMPLOP
+        ========================= */
+
+        #envelope-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            background:
+                radial-gradient(
+                    circle at center,
+                    #50103f,
+                    #170014 70%
+                );
+            transition: opacity 0.8s, visibility 0.8s;
+        }
+
+        #envelope-screen.closed {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .envelope-title {
+            font-family: 'Pacifico', cursive;
+            color: var(--light-pink);
+            font-size: clamp(30px, 8vw, 43px);
+            text-shadow: 0 0 20px var(--pink);
+            margin-bottom: 10px;
+        }
+
+        .envelope-description {
+            color: #f8d9f0;
+            font-size: 12px;
+            line-height: 1.9;
+            margin-bottom: 28px;
+        }
+
+        .envelope {
+            position: relative;
+            width: min(300px, 85vw);
+            height: 190px;
+            margin: 10px 0 30px;
+            perspective: 1000px;
+            filter: drop-shadow(0 0 25px #ff39b866);
+        }
+
+        .envelope-back {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #ff70ca, #a1008b);
+            border-radius: 8px;
+        }
+
+        .envelope-letter {
+            position: absolute;
+            left: 8%;
+            top: 10%;
+            width: 84%;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fff1fb;
+            color: #a10072;
+            border-radius: 5px;
+            font-size: 12px;
+            line-height: 2;
+            transition: transform 0.8s 0.2s;
+        }
+
+        .envelope-letter strong {
+            font-family: 'Pacifico', cursive;
+            font-size: 26px;
+        }
+
+        .envelope-front {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(145deg, #ff3bb8, #d5008f);
+            clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+            border-radius: 8px;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #ffb1e3, #ff39b8);
+            clip-path: polygon(0 0, 100% 0, 50% 60%);
+            transform-origin: top;
+            transition: transform 0.7s;
+            z-index: 3;
+        }
+
+        .envelope.sealed .envelope-flap {
+            transform: rotateX(0deg);
+        }
+
+        .envelope.opened .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        .envelope.opened .envelope-letter {
+            transform: translateY(-85px);
+        }
+
+        .seal {
+            position: absolute;
+            z-index: 4;
+            top: 42%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 49px;
+            height: 49px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #85005c;
+            border: 2px solid #ffb1e3;
+            box-shadow: 0 0 20px #ff39b8;
+            font-size: 24px;
+            transition: opacity 0.3s;
+        }
+
+        .envelope.opened .seal {
+            opacity: 0;
+        }
+
+        /* =========================
+           5. WEBSITE UTAMA
+        ========================= */
+
+        #main-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 24px 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        #main-content.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .invitation {
+            width: 100%;
+            border: 1px solid #ff62c877;
+            border-radius: 28px;
+            background: rgba(25, 0, 25, 0.86);
+            box-shadow:
+                0 0 30px #ff149344,
+                0 0 80px #8a2be222;
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+        }
+
+        .top-label {
+            text-align: center;
+            padding: 25px 10px 0;
+            color: var(--light-pink);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        /* =========================
+           6. SLIDE
+        ========================= */
+
+        .slide {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 540px;
+            padding: 30px 23px;
+            text-align: center;
+        }
+
+        .slide.active {
+            display: flex;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .eyebrow {
+            color: var(--light-pink);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(34px, 9vw, 48px);
+            line-height: 1.4;
+            color: #ff70cf;
+            text-shadow: 0 0 20px #ff149388;
+        }
+
+        h2 {
+            font-size: 25px;
+            color: var(--light-pink);
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            line-height: 2;
+            color: #f7dff1;
+            margin-top: 12px;
+        }
+
+        .sticker {
+            font-size: 48px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 12px var(--pink));
+        }
+
+        .age {
+            font-size: 105px;
+            font-weight: 800;
+            line-height: 1.15;
+            color: white;
+            -webkit-text-stroke: 2px var(--pink);
+            text-shadow: 0 0 30px #ff1493;
+        }
+
+        .divider {
+            width: 100px;
+            height: 3px;
+            margin: 20px auto;
+            border-radius: 20px;
+            background: linear-gradient(
+                90deg,
+                var(--pink),
+                #dcb6ff,
+                var(--pink)
+            );
+            box-shadow: 0 0 15px var(--pink);
+        }
+
+        /* =========================
+           7. FOTO RISMA
+        ========================= */
+
+        .photo-frame {
+            width: 190px;
+            height: 235px;
+            margin: 0 auto 20px;
+            padding: 6px;
+            border-radius: 100px 100px 25px 25px;
+            border: 2px solid #ff70cf;
+            background: linear-gradient(135deg, #ff39b8, #a855f7);
+            box-shadow:
+                0 0 20px #ff39b866,
+                0 0 40px #a855f744;
+            overflow: hidden;
+            animation: photoGlow 3s ease-in-out infinite;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            border-radius: inherit;
+        }
+
+        @keyframes photoGlow {
+            0%, 100% {
+                box-shadow: 0 0 15px #ff39b855;
+            }
+
+            50% {
+                box-shadow: 0 0 35px #ff39b8bb;
+            }
+        }
+
+        /* =========================
+           8. KARTU DETAIL ACARA
+        ========================= */
+
+        .details {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .detail-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px;
+            border: 1px solid #ff62c833;
+            border-radius: 15px;
+            background: #ffffff0b;
+        }
+
+        .icon {
+            font-size: 24px;
+        }
+
+        .detail-card strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--light-pink);
+            font-size: 11px;
+        }
+
+        .detail-card p {
+            color: white;
+            font-size: 11px;
+            line-height: 1.9;
+            overflow-wrap: anywhere;
+        }
+
+        .dresscode {
+            padding: 14px;
+            margin: 12px 0;
+            border: 1px dashed var(--pink);
+            border-radius: 15px;
+            background: #ff14931a;
+            color: #ffd1ef;
+            font-size: 12px;
+            line-height: 2;
+        }
+
+        .quote {
+            margin: 15px 0;
+            color: #f8c8eb;
+            font-size: 12px;
+            font-style: italic;
+            line-height: 2;
+        }
+
+        /* =========================
+           9. TOMBOL
+        ========================= */
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 7px;
+            border: none;
+            border-radius: 30px;
+            padding: 13px 19px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px #ff149377;
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg, #ff1493, #9d4edd);
+            box-shadow: 0 5px 20px #ff149344;
+        }
+
+        .btn-secondary {
+            color: var(--light-pink);
+            background: transparent;
+            border: 1px solid #ff62c8;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        /* =========================
+           10. NAVIGASI SLIDE
+        ========================= */
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 0 0 18px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 20px;
+            background: #6c315f;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            width: 25px;
+            background: var(--pink);
+            box-shadow: 0 0 10px var(--pink);
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 0 10px 25px;
+        }
+
+        .footer {
+            padding: 0 10px 20px;
+            text-align: center;
+            color: #c79cbd;
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
+
+        /* =========================
+           11. MUSIK
+        ========================= */
+
+        .music-control {
+            position: fixed;
+            right: 14px;
+            bottom: 14px;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 15px;
+            border: 1px solid #ff70cf;
+            border-radius: 30px;
+            color: white;
+            background: #2b0625ee;
+            box-shadow: 0 0 20px #ff149355;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* =========================
+           12. EFEK HATI
+        ========================= */
+
+        .heart-effect {
+            position: fixed;
+            z-index: 30;
+            pointer-events: none;
+            font-size: 24px;
+            animation: heartPop 1s ease-out forwards;
+        }
+
+        @keyframes heartPop {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 0) scale(0.3);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -20px) scale(1.2);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -100px) scale(0.8);
+            }
+        }
+
+        @media (max-width: 380px) {
+            #main-content {
+                padding: 15px 10px;
+            }
+
+            .slide {
+                padding: 25px 16px;
+            }
+
+            .photo-frame {
+                width: 165px;
+                height: 205px;
+            }
+
+            .age {
+                font-size: 85px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- DEKORASI KUPU-KUPU -->
+
+    <div class="butterfly one">🦋</div>
+    <div class="butterfly two">🦋</div>
+    <div class="butterfly three">🦋</div>
+
+    <!-- TEMPAT EFEK GLITTER -->
+
+    <div id="glitter-layer"></div>
+    <div id="effect-layer"></div>
+
+
+    <!-- =========================
+         AMPLOP PEMBUKA
+    ========================== -->
+
+    <section id="envelope-screen">
+
+        <p class="eyebrow">A SPECIAL INVITATION FOR YOU</p>
+
+        <h1 class="envelope-title">
+            Hey, Bestie! 💋
+        </h1>
+
+        <p class="envelope-description">
+            You've got a special invitation!<br>
+            Open it to discover something pretty. 🎀
+        </p>
+
+        <div class="envelope sealed" id="envelope">
+
+            <div class="envelope-back"></div>
+
+            <div class="envelope-letter">
+                <span>YOU'RE INVITED TO</span>
+                <strong>Risma's 19th</strong>
+                <span>DECEMBER 06, 2026 ♡</span>
+            </div>
+
+            <div class="envelope-front"></div>
+
+            <div class="envelope-flap"></div>
+
+            <div class="seal">💋</div>
+
+        </div>
+
+        <button
+            class="btn btn-primary"
+            id="open-envelope"
+            onclick="openInvitation()"
+        >
+            OPEN MY INVITATION 💌
+        </button>
+
+        <p class="subtitle">
+            Made with love, glitter & a little bit of drama. 💗
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         KONTEN UNDANGAN
+    ========================== -->
+
+    <main id="main-content">
+
+        <div class="invitation">
+
+            <div class="top-label">
+                ✦ THE BADDIE BIRTHDAY EXPERIENCE ✦
+            </div>
+
+
+            <!-- SLIDE 1: FOTO DAN PEMBUKA -->
+
+            <section class="slide active">
+
+                <p class="eyebrow">IT'S MY BIRTHDAY!</p>
+
+                <div class="photo-frame">
+
+                    <!--
+                    GANTI foto-risma.jpg
+                    DENGAN NAMA FILE FOTO KAMU
+                    -->
+
+                    <img
+                        src="foto-risma.jpg/foto-risma.jpg"
+                        alt="Foto Risma"
+                        onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;font-size:45px;&quot;>💋🎀<p style=&quot;font-size:11px;&quot;>YOUR PHOTO HERE</p></div>';"
+                    >
+
+                </div>
+
+                <h1>Risma's<br>Birthday</h1>
+
+                <div class="age">19</div>
+
+                <div class="divider"></div>
+
+                <p class="subtitle">
+                    A little older, a lot bolder. 💎<br>
+                    Main character energy since day one.
+                </p>
+
+                <br>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="nextSlide()"
+                >
+                    LET'S CELEBRATE! 💋 →
+                </button>
+
+            </section>
+
+
+            <!-- SLIDE 2: DETAIL ACARA -->
+
+            <section class="slide">
+
+                <div class="sticker">💖</div>
+
+                <p class="eyebrow">SAVE THE DATE</p>
+
+                <h2>Let's Celebrate!</h2>
+
+                <p class="subtitle">
+                    Dengan senang hati, aku mengundang
+                    kamu untuk merayakan ulang tahunku
+                    yang ke-19! 💗
+                </p>
+
+                <div class="details">
+
+                    <div class="detail-card">
+                        <span class="icon">📅</span>
+                        <div>
+                            <strong>DATE</strong>
+                            <p>Minggu, 6 Desember 2026</p>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <span class="icon">⏰</span>
+                        <div>
+                            <strong>TIME</strong>
+                            <p> 2 siang</p>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <span class="icon">📍</span>
+                        <div>
+                            <strong>LOCATION</strong>
+                            <p>
+                                Rumah Risma<br>
+                                Jalan Sungai Andai,<br>
+                                Komp. Herlina Perkasa,<br>
+                                Blok Batu Merah 1
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="btn btn-primary" onclick="nextSlide()">
+                    NEXT, BABE! 💋 →
+                </button>
+
+            </section>
+
+
+            <!-- SLIDE 3: DRESSCODE -->
+
+            <section class="slide">
+
+                <div class="sticker">💅🏻</div>
+
+                <p class="eyebrow">THE VIBE IS BADDIE</p>
+
+                <h2>Dress to Impress!</h2>
+
+                <p class="subtitle">
+                    Wear your favorite outfit,
+                    bring your pretty face,
+                    and let's make memories!
+                </p>
+
+                <div class="divider"></div>
+
+                <div class="dresscode">
+                    👗 DRESSCODE: NO DRESSCODE
+
+                    <br><br>
+
+                    Bebas pakai outfit apa aja!
+                    Yang penting nyaman, pede,
+                    dan siap have fun bareng. 💋
+                </div>
+
+                <p class="quote">
+                    "Good vibes, pretty faces,
+                    unforgettable memories." 💗
+                </p>
+
+                <button class="btn btn-primary" onclick="nextSlide()">
+                    ONE LAST THING... 💌 →
+                </button>
+
+            </section>
+
+
+            <!-- SLIDE 4: PENUTUP -->
+
+            <section class="slide">
+
+                <div class="sticker">🎂</div>
+
+                <p class="eyebrow">LET'S MAKE IT ICONIC</p>
+
+                <h1>See You,<br>Bestie!</h1>
+
+                <div class="divider"></div>
+
+                <p class="subtitle">
+                    Kehadiran kamu bakal bikin
+                    hari spesialku makin berkesan.
+
+                    <br><br>
+
+                    Jangan sampai nggak datang, ya! 💗
+                </p>
+
+                <p class="quote">
+                    With love,<br>
+                    <strong>Risma Annida ♡</strong>
+                </p>
+
+                <div class="button-group">
+
+                    <!-- TOMBOL KALENDER -->
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="saveCalendar()"
+                    >
+                        🗓️ SAVE THE DATE
+                    </button>
+
+                    <!-- TOMBOL GOOGLE MAPS -->
+
+                    <a
+                        class="btn btn-secondary"
+                        href="https://maps.app.goo.gl/x6bFVWFtCTiTr3sE8"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        📍 OPEN MAPS
+                    </a>
+
+                </div>
+
+                <!-- TOMBOL WHATSAPP -->
+
+                <a
+    class="btn btn-primary"
+    style="margin-top: 12px;"
+    href="https://wa.me/6283131127766?text=Hai%20Risma!%20Aku%20mau%20datang%20ke%20ulang%20tahun%20ke-19%20kamu%20tanggal%206%20Desember%202026.%20See%20you%20there!%20"
+    target="_blank"
+    rel="noopener noreferrer"
+>
+    💌 CONFIRM ATTENDANCE
+</a>
+                   
+
+                <p class="subtitle">
+                    Klik WhatsApp untuk mengabari Risma.
+                </p>
+
+                <button
+                    class="btn btn-secondary"
+                    style="margin-top: 15px;"
+                    onclick="goToSlide(0)"
+                >
+                    ↺ REPLAY INVITATION
+                </button>
+
+            </section>
+
+
+            <!-- TITIK NAVIGASI SLIDE -->
+
+            <div class="dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+
+
+            <!-- TOMBOL BACK DAN NEXT -->
+
+            <div class="navigation">
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="prevSlide()"
+                >
+                    ← BACK
+                </button>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="nextSlide()"
+                >
+                    NEXT →
+                </button>
+
+            </div>
+
+
+            <div class="footer">
+                MADE WITH LOVE & GLITTER ♡ RISMA 2026
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- MUSIK LATAR -->
+
+    <audio id="birthday-music" loop preload="auto">
+        <source src="music.mp3/Doja_Cat_-_Boss_Bitch (1).mp3" type="audio/mpeg">
+    </audio>
+
+    <button
+        class="music-control"
+        id="music-button"
+        onclick="toggleMusic()"
+        style="display: none;"
+    >
+        🎵 PLAY MUSIC
+    </button>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        // 1. MEMBUKA AMPLOP
+
+        let invitationOpened = false;
+
+        function openInvitation() {
+
+            if (invitationOpened) return;
+
+            invitationOpened = true;
+
+            const envelope =
+                document.getElementById("envelope");
+
+            const envelopeScreen =
+                document.getElementById("envelope-screen");
+
+            const mainContent =
+                document.getElementById("main-content");
+
+            const openButton =
+                document.getElementById("open-envelope");
+
+            envelope.classList.remove("sealed");
+            envelope.classList.add("opened");
+
+            openButton.disabled = true;
+
+            openButton.textContent =
+                "OPENING YOUR INVITATION... 💗";
+
+            const music =
+                document.getElementById("birthday-music");
+
+            const musicButton =
+                document.getElementById("music-button");
+
+            musicButton.style.display = "flex";
+
+            music.play()
+                .then(() => {
+                    musicButton.textContent = "⏸ PAUSE MUSIC";
+                })
+                .catch(() => {
+                    musicButton.textContent = "🎵 PLAY MUSIC";
+                });
+
+            setTimeout(() => {
+
+                envelopeScreen.classList.add("closed");
+
+                mainContent.classList.add("visible");
+
+                createGlitter(45);
+
+            }, 1000);
+
+        }
+
+
+        // 2. NAVIGASI SLIDE
+
+        const slides =
+            document.querySelectorAll(".slide");
+
+        const dots =
+            document.querySelectorAll(".dot");
+
+        let currentSlide = 0;
+
+        function goToSlide(index) {
+
+            slides[currentSlide].classList.remove("active");
+
+            dots[currentSlide].classList.remove("active");
+
+            currentSlide =
+                (index + slides.length) % slides.length;
+
+            slides[currentSlide].classList.add("active");
+
+            dots[currentSlide].classList.add("active");
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+
+        // 3. PLAY DAN PAUSE MUSIK
+
+        const music =
+            document.getElementById("birthday-music");
+
+        const musicButton =
+            document.getElementById("music-button");
+
+        function toggleMusic() {
+
+            if (music.paused) {
+
+                music.play()
+                    .then(() => {
+                        musicButton.textContent =
+                            "⏸ PAUSE MUSIC";
+                    })
+                    .catch(() => {
+                        musicButton.textContent =
+                            "🎵 TRY AGAIN";
+                    });
+
+            } else {
+
+                music.pause();
+
+                musicButton.textContent =
+                    "🎵 PLAY MUSIC";
+
+            }
+
+        }
+
+
+        // 4. ANIMASI GLITTER
+
+        function createGlitter(amount = 1) {
+
+            const layer =
+                document.getElementById("glitter-layer");
+
+            const symbols = ["✦", "✧", "⋆", "✨", "·"];
+
+            for (let i = 0; i < amount; i++) {
+
+                const glitter =
+                    document.createElement("span");
+
+                glitter.className = "glitter";
+
+                glitter.textContent =
+                    symbols[
+                        Math.floor(
+                            Math.random() * symbols.length
+                        )
+                    ];
+
+                glitter.style.left =
+                    Math.random() * 100 + "vw";
+
+                glitter.style.top = "-20px";
+
+                glitter.style.fontSize =
+                    (8 + Math.random() * 14) + "px";
+
+                glitter.style.animationDuration =
+                    (4 + Math.random() * 6) + "s";
+
+                layer.appendChild(glitter);
+
+                glitter.addEventListener(
+                    "animationend",
+                    () => glitter.remove()
+                );
+
+            }
+
+        }
+
+        setInterval(() => {
+            createGlitter(3);
+        }, 700);
+
+
+        // 5. EFEK HATI SAAT LAYAR DISENTUH
+
+        document.addEventListener(
+            "pointerdown",
+            function(event) {
+
+                if (event.target.closest("button, a")) {
+                    return;
+                }
+
+                const layer =
+                    document.getElementById("effect-layer");
+
+                const heart =
+                    document.createElement("span");
+
+                heart.className = "heart-effect";
+
+                const hearts = [
+                    "💗",
+                    "💖",
+                    "💕",
+                    "💋",
+                    "✨"
+                ];
+
+                heart.textContent =
+                    hearts[
+                        Math.floor(Math.random() * hearts.length)
+                    ];
+
+                heart.style.left =
+                    event.clientX + "px";
+
+                heart.style.top =
+                    event.clientY + "px";
+
+                layer.appendChild(heart);
+
+                heart.addEventListener(
+                    "animationend",
+                    () => heart.remove()
+                );
+
+            }
+        );
+
+
+        // 6. SIMPAN TANGGAL KE KALENDER
+
+        function saveCalendar() {
+
+            const eventTitle =
+                "Risma's 19th Birthday";
+
+            const eventDescription =
+                "Birthday party Risma Annida. Dresscode: No dresscode.";
+
+            const eventLocation =
+                "Rumah Risma, Jalan Sungai Andai, Komp. Herlina Perkasa, Blok Batu Merah 1, Banjarmasin";
+
+            const calendarContent = [
+                "BEGIN:VCALENDAR",
+                "VERSION:2.0",
+                "PRODID:-//Risma Birthday//ID",
+                "CALSCALE:GREGORIAN",
+                "BEGIN:VEVENT",
+                "UID:risma19-20261206@birthday.local",
+                "DTSTAMP:20261023T000000Z",
+                "DTSTART:20261206T060000Z",
+                "DTEND:20261206T090000Z",
+                "SUMMARY:" + eventTitle,
+                "DESCRIPTION:" + eventDescription,
+                "LOCATION:" + eventLocation,
+                "END:VEVENT",
+                "END:VCALENDAR"
+            ].join("\r\n");
+
+            const file = new Blob(
+                [calendarContent],
+                {
+                    type: "text/calendar;charset=utf-8"
+                }
+            );
+
+            const downloadURL =
+                URL.createObjectURL(file);
+
+            const link =
+                document.createElement("a");
+
+            link.href = downloadURL;
+
+            link.download =
+                "Risma-19th-Birthday.ics";
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            link.remove();
+
+            setTimeout(() => {
+                URL.revokeObjectURL(downloadURL);
+            }, 1000);
+
+        }
+
+    </script>
+
+</body>
+</html>
